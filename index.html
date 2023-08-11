@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows Update Page</title>
+    <link rel="icon" type="image/png" href="./windows.png">
+    <style>
+*{
+    padding: 0;
+    margin: 0;
+    user-select: none;
+}
+.main{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: black;
+  flex-direction: column;
+}
+button{
+  padding: 10px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  font-size: 24px;
+}
+button:hover{
+  background-color: #005aa0;
+  color: #fbfdfd;
+  transition: all 0.2s;
+}
+
+.tip{
+  color: #fbfdfd;
+  margin: 30px;
+  text-align: center;
+}
+.update{
+    background-color: #005aa0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: none;
+}
+.update::-webkit-scrollbar {
+    display: none;
+}
+.update__content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.update__spinner{
+    text-align: center;
+    margin: 20px;
+}
+
+.update__text{
+    text-align: center;
+    color: #fbfdfd;
+    font-family: sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.update__loader{
+    height: 50px;
+    width: 50px;
+    margin: 20px;
+}
+
+.update__spinner{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    position: absolute;
+    margin: 0;
+    animation-name: rotate;
+    animation-duration: 1.4s;
+    animation-timing-function: cubic-bezier(0.05, 0.57, 0.63, 0.38);
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+}
+
+.update__spinner--second{
+    animation-delay: 0.2s;
+}
+
+.update__spinner--third{
+    animation-delay: 0.4s;
+}
+
+.update__spinner--four{
+    animation-delay: 0.6s;
+}
+
+.update__spinner--five{
+    animation-delay: 0.8s;
+}
+
+.update__spinner--six{
+    animation-delay: 1s;
+}
+
+.spinner__point{
+    width: 7px;
+    height: 7px;
+    border-radius: 10px;
+    background-color: #fbfdfd !important;
+}
+.update__text{
+  padding-top: 10px;
+}
+@keyframes rotate{
+    0% {
+        transform: rotate(0.7turn)
+    }       
+    100%{
+        transform: rotate(1.7turn)
+    }
+}
+a {
+  text-decoration: none; 
+  color: #acdede;
+  text-align: center;
+  font-size: 8px;
+}
+.link{
+  margin:  20px 0 0 0;
+ 
+}
+    </style>
+</head>
+<body>
+    <div class="main">
+     <p class="tip">点击按钮后进入全屏同时隐藏鼠标指针，按esc可退出全屏，黑暗模式插件可能会影响页面效果</p> 
+     <button onclick="fullscreenchange()">Windows Update</button>
+     <div class="link"> <a  href="https://codepen.io/emilienleroy/pen/QVZQbB" >Link</a> </div>  
+    </div>
+
+    <div class="update" style="display: none;">
+      <div class="update__content">
+          <div class="update__loader">
+              <div class="update__spinner">
+                  <div class="spinner__point"></div>
+              </div>
+              <div class="update__spinner update__spinner--second">
+                  <div class="spinner__point"></div>
+              </div>
+              <div class="update__spinner update__spinner--third">
+                      <div class="spinner__point"></div>
+              </div>
+              <div class="update__spinner update__spinner--four">
+                      <div class="spinner__point"></div>
+              </div>
+              <div class="update__spinner update__spinner--five">
+                      <div class="spinner__point"></div>
+              </div>
+          </div>
+          
+          <div class="update__text">
+              <p>正在配置更新</p>
+              <p>请不要关闭你的计算机</p>
+          </div>
+      </div>
+  </div>
+    <script>
+      function fullscreenchange(){
+        const docElm = document.documentElement;
+        if (docElm.requestFullscreen) {
+        docElm.requestFullscreen();
+      } else if (docElm.mozRequestFullScreen) {
+        docElm.mozRequestFullScreen();
+      } else if (docElm.webkitRequestFullscreen) {
+        docElm.webkitRequestFullscreen();
+      } else if (docElm.msRequestFullscreen) {
+        docElm.msRequestFullscreen();
+      }
+      const main = document.querySelector('.main');
+      main.style.display = "none";  
+      const update = document.querySelector('.update');
+      update.style.display = "flex"; 
+      
+      }
+      document.addEventListener("fullscreenchange", function() {
+      if (!document.fullscreenElement &&    
+          !document.mozFullScreenElement && 
+          !document.webkitFullscreenElement && 
+          !document.msFullscreenElement) {  
+      const update = document.querySelector('.update');
+      update.style.display = "none"; 
+      const main = document.querySelector('.main');
+      main.style.display = "flex"; 
+      }
+    });
+      </script>
+</body>
+</html>
